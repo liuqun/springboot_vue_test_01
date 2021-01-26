@@ -25,8 +25,8 @@ public class BookHandler {
         return bookList;
     }*/
 
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<Book> findAll(@PathVariable("page")Integer page, @PathVariable("size") Integer size){
+    @GetMapping("/index")
+    public Page<Book> findAll(@RequestParam("page")Integer page, @RequestParam("size") Integer size){
         //page:查询的页数（从0开始，所以-1）
         //size：每页显示的数量
         Pageable pageable = PageRequest.of(page-1,size) ;
@@ -49,7 +49,7 @@ public class BookHandler {
 
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}/details")
     public Book findById(@PathVariable("id")Integer id){
         return bookRepository.findById(id).get();
     }
@@ -65,8 +65,8 @@ public class BookHandler {
         }
     }
 
-    @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable("id") Integer id){
+    @DeleteMapping("/delete")
+    public void deleteById(@RequestParam("id") Integer id){
         bookRepository.deleteById(id);
     }
 
